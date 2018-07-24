@@ -8,7 +8,7 @@ public class MonsterMovement : EntityMovement
     protected override void Awake()
     {
         base.Awake();
-        this.defaultTarget = GameObject.FindGameObjectWithTag("FriendlyPylon").transform;
-        this.entityAttack = this.gameObject.GetComponent<MonsterAttack>();
+        this.DefaultTarget = GameObject.FindGameObjectWithTag("FriendlyPylon").transform;
+        this.EntityAttackObject = this.gameObject.GetComponent<MonsterAttack>();
     }
 }

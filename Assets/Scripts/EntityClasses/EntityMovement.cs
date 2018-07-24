@@ -9,30 +9,28 @@ public class EntityMovement : MonoBehaviour
     private NavMeshAgent nav;
     private float rotationSpeed = 10f;
 
-    protected Transform defaultTarget { get; set; }
-    protected EntityAttack entityAttack { get; set; }
+    protected Transform DefaultTarget { get; set; }
+    protected EntityAttack EntityAttackObject { get; set; }
 
-    // Use this for initialization
     protected virtual void Awake()
     {
         this.nav = GetComponent<NavMeshAgent>();
     }
-
-    // Update is called once per frame
+    
     private void FixedUpdate()
     {
-        if (this.entityAttack.AttackingEntity != null)
+        if (this.EntityAttackObject.AttackingEntity != null)
         {
-            this.target = this.entityAttack.AttackingEntity.transform;
+            this.target = this.EntityAttackObject.AttackingEntity.transform;
             this.nav.speed = 3f;
         }
         else
         {
-            this.target = this.defaultTarget;
+            this.target = this.DefaultTarget;
             this.nav.speed = 5f;
         }
 
-        if (this.entityAttack.IsInAutoAttackRange)
+        if (this.EntityAttackObject.IsInAutoAttackRange)
         {
             this.nav.isStopped = true;
             var direction = (target.position - transform.position).normalized;

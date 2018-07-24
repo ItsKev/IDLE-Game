@@ -9,8 +9,8 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private Transform minionSpawn;
     [SerializeField] private Transform monsterSpawn;
 
-    private int minionCount = 5;
-    private int monsterCount = 2;
+    private int minionCount = 4;
+    private int monsterCount = 4;
 
     private void Awake()
     {

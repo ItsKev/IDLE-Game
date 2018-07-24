@@ -4,8 +4,10 @@ using System.Collections;
 
 public class GameHandler : MonoBehaviour
 {
-
     public event EventHandler WaveStarts;
+    public event EventHandler StatsChanged;
+
+    public Scaler Scaler { get; private set; }
 
     private void Awake()
     {

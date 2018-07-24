@@ -50,7 +50,7 @@ public class EntityAttack : MonoBehaviour
                 if (this.IsInAutoAttackRange)
                 {
                     this.attackTimer = 0f;
-                    this.AttackingEntity.TakeDamage(attackDamage);
+                    this.AttackingEntity.TakeDamage(this.attackDamage);
                 }
             }
         }
