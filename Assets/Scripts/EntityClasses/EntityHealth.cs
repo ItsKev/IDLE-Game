@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,19 +7,16 @@ using UnityEngine.UI;
 public class EntityHealth : MonoBehaviour {
 
     [SerializeField]
-    private float startingHealth = 100;
+    protected float startingHealth = 100;
     [SerializeField]
     private float currentHealth;
-
-    public bool isDead { get; private set; }
-
     [SerializeField]
     private Image healthBar;
 
-	// Use this for initialization
-    private void Awake ()
+    public event EventHandler EntityDied;
+
+    protected virtual void Awake ()
 	{
-	    this.isDead = false;
         this.currentHealth = this.startingHealth;
 	}
 	
@@ -31,8 +29,17 @@ public class EntityHealth : MonoBehaviour {
 
         if (this.currentHealth <= 0)
         {
-            this.isDead = true;
+            this.OnEntityDied(new EventArgs());
             Destroy(this.gameObject);
+        }
+    }
+
+    protected void OnEntityDied(EventArgs eventArgs)
+    {
+        var handler = EntityDied;
+        if (handler != null)
+        {
+            handler(this, eventArgs);
         }
     }
 }

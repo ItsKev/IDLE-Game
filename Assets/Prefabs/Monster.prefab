@@ -24,9 +24,9 @@ GameObject:
   - component: {fileID: 65686883194074152}
   - component: {fileID: 195932552292353048}
   - component: {fileID: 54349896442716942}
-  - component: {fileID: 114415759654944320}
   - component: {fileID: 114657052653313790}
   - component: {fileID: 114923939709097690}
+  - component: {fileID: 114717766220156522}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -208,20 +208,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114415759654944320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1528141847543034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcb1aa3c7e1a3e34fa1cf6157258587f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 0
-  healthBar: {fileID: 114085603747614486}
 --- !u!114 &114549640954253298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,9 +267,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 495b5fcb63c586e40b85e45d7f42d443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenAttacks: 0.5
-  attackDamage: 3
-  autoAttackRange: 2
+--- !u!114 &114717766220156522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1528141847543034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee17a6472086da439a18cb5c910a6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 114085603747614486}
 --- !u!114 &114915003794820622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +318,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 5
-  m_Acceleration: 8
+  m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 2
@@ -382,7 +379,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 50.000004, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.898, y: 1.3900001}
+  m_AnchoredPosition: {x: 0.9, y: 1.3900001}
   m_SizeDelta: {x: 110.033, y: 24.043}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224624152697827876

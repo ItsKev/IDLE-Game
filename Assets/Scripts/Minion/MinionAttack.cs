@@ -7,7 +7,7 @@ public class MinionAttack : EntityAttack
     protected override void Awake()
     {
         base.Awake();
-        this.attackDamage = 10f;
-        this.EntityToAttack = "Monster";
+        this.attackDamage = 5f;
+        this.EntityToAttack = new string[] {"Monster", "EnemyPylon"};
     }
 }

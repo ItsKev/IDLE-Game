@@ -1,22 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class EntityAttack : MonoBehaviour
 {
-    [SerializeField] protected float timeBetweenAttacks = 0.5f;
-    [SerializeField] protected float attackDamage = 5f;
-    [SerializeField] protected float autoAttackRange = 2f;
+    protected float timeBetweenAttacks = 0.5f;
+    protected float attackDamage = 5f;
+    protected float autoAttackRange = 3f;
 
-    private GameObject entity;
+    private EntityHealth attackingEntity;
     private float attackTimer;
-    private EntityHealth health;
 
-    public GameObject Entity
+    public EntityHealth AttackingEntity
     {
-        get { return this.entity; }
+        get { return this.attackingEntity; }
         set
         {
-            this.entity = value;
+            this.attackingEntity = value;
             this.HasTargetToAttack = true;
         }
     }
@@ -25,12 +25,12 @@ public class EntityAttack : MonoBehaviour
 
     public bool IsInAutoAttackRange { get; private set; }
 
-    protected string EntityToAttack { get; set; }
+    protected string[] EntityToAttack { get; set; }
 
     protected virtual void Awake()
     {
-        this.IsInAutoAttackRange = false;
-        this.health = this.gameObject.GetComponent<EntityHealth>();
+        var entityHealth = this.gameObject.GetComponent<EntityHealth>();
+        entityHealth.EntityDied += this.OnEntityDeath;
     }
 
     private void FixedUpdate()
@@ -39,7 +39,7 @@ public class EntityAttack : MonoBehaviour
         this.attackTimer += Time.deltaTime;
         if (this.attackTimer >= timeBetweenAttacks)
         {
-            if (this.entity == null || this.health.isDead)
+            if (this.AttackingEntity == null)
             {
                 this.HasTargetToAttack = false;
                 this.IsInAutoAttackRange = false;
@@ -49,12 +49,8 @@ public class EntityAttack : MonoBehaviour
                 this.CheckIfInAutoAttackRange();
                 if (this.IsInAutoAttackRange)
                 {
-                    var entityHealth = this.entity.GetComponent<EntityHealth>();
                     this.attackTimer = 0f;
-                    if (!entityHealth.isDead)
-                    {
-                        entityHealth.TakeDamage(attackDamage);
-                    }
+                    this.AttackingEntity.TakeDamage(attackDamage);
                 }
             }
         }
@@ -73,19 +69,20 @@ public class EntityAttack : MonoBehaviour
     private void AttackIfAbleTo(Collider other)
     {
         if (this.HasTargetToAttack) return;
-        if (other.CompareTag(this.EntityToAttack))
+        foreach (var entityName in this.EntityToAttack)
         {
-            var entityHealth = other.GetComponent<EntityHealth>();
-            if (!entityHealth.isDead)
+            if (other.CompareTag(entityName))
             {
-                this.Entity = other.gameObject;
+                this.AttackingEntity = other.GetComponent<EntityHealth>();
+                this.AttackingEntity.EntityDied += OnEntityDeath;
+                break;
             }
         }
     }
 
     private void CheckIfInAutoAttackRange()
     {
-        var distance = Vector3.Distance(this.gameObject.transform.position, this.entity.transform.position);
+        var distance = Vector3.Distance(this.gameObject.transform.position, this.AttackingEntity.transform.position);
         if (distance <= this.autoAttackRange)
         {
             this.IsInAutoAttackRange = true;
@@ -94,5 +91,11 @@ public class EntityAttack : MonoBehaviour
         {
             this.IsInAutoAttackRange = false;
         }
+    }
+
+    private void OnEntityDeath(object sender, EventArgs e)
+    {
+        this.AttackingEntity = null;
+        this.IsInAutoAttackRange = false;
     }
 }
