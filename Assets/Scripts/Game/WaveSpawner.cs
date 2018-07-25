@@ -9,17 +9,22 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private Transform minionSpawn;
     [SerializeField] private Transform monsterSpawn;
 
-    private int minionCount = 4;
+    private int minionCount = 10;
     private int monsterCount = 4;
+
+    private Scaler scaler;
 
     private void Awake()
     {
         var gameHandler = this.gameObject.GetComponent<GameHandler>();
         gameHandler.WaveStarts += StartSpawningWave;
+        this.scaler = gameHandler.Scaler;
     }
 
     private void StartSpawningWave(object sender, EventArgs e)
     {
+        this.minionCount = scaler.MinionCount;
+        this.monsterCount = scaler.MonsterCount;
         StartCoroutine(SpawnMinions());
         StartCoroutine(SpawnMonsters());
     }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class EntityHealth : MonoBehaviour {
 
+    protected static GameHandler gameHandler;
+
     [SerializeField]
     protected float startingHealth = 100;
     [SerializeField]
@@ -17,8 +19,16 @@ public class EntityHealth : MonoBehaviour {
 
     protected virtual void Awake ()
 	{
-        this.currentHealth = this.startingHealth;
+	    if (EntityHealth.gameHandler == null)
+	    {
+	        EntityHealth.gameHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<GameHandler>();
+	    }
 	}
+
+    private void Start()
+    {
+        this.currentHealth = this.startingHealth;
+    }
 	
 
     public void TakeDamage(float amount)

@@ -7,7 +7,10 @@ public class MinionAttack : EntityAttack
     protected override void Awake()
     {
         base.Awake();
-        this.attackDamage = 5f;
+        var scaler = EntityAttack.gameHandler.Scaler;
+        this.attackDamage = scaler.MinionAttackDamage;
+        this.autoAttackRange = scaler.MinionAttackRange;
+        this.timeBetweenAttacks = 1 / scaler.MinionAttackSpeed;
         this.EntityToAttack = new string[] {"Monster", "EnemyPylon"};
     }
 }

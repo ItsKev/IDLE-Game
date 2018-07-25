@@ -4,8 +4,10 @@ using System.Collections;
 
 public class EntityAttack : MonoBehaviour
 {
+    protected static GameHandler gameHandler;
+
     protected float timeBetweenAttacks = 0.5f;
-    protected float attackDamage = 5f;
+    [SerializeField] protected float attackDamage = 5f;
     protected float autoAttackRange = 3f;
 
     private EntityHealth attackingEntity;
@@ -29,6 +31,11 @@ public class EntityAttack : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (EntityAttack.gameHandler == null)
+        {
+            EntityAttack.gameHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<GameHandler>();
+        }
+
         var entityHealth = this.gameObject.GetComponent<EntityHealth>();
         entityHealth.EntityDied += this.OnEntityDeath;
     }

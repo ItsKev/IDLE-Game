@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class EntityMovement : MonoBehaviour
 {
+    protected static GameHandler gameHandler;
 
     private Transform target;
     private NavMeshAgent nav;
@@ -14,6 +15,11 @@ public class EntityMovement : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (EntityMovement.gameHandler == null)
+        {
+            EntityMovement.gameHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<GameHandler>();
+        }
+
         this.nav = GetComponent<NavMeshAgent>();
     }
     

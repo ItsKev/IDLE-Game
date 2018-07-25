@@ -5,7 +5,8 @@ public class MinionHealth : EntityHealth
 {
     protected override void Awake()
     {
-        this.startingHealth = 50;
         base.Awake();
+        var scaler = EntityHealth.gameHandler.Scaler;
+        this.startingHealth = scaler.MinionHealth;
     }
 }

@@ -5,7 +5,8 @@ public class MonsterHealth : EntityHealth
 {
     protected override void Awake()
     {
-        this.startingHealth = 100;
         base.Awake();
+        var scaler = EntityHealth.gameHandler.Scaler;
+        this.startingHealth = scaler.MonsterHealth;
     }
 }

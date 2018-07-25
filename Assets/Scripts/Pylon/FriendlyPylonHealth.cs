@@ -5,7 +5,8 @@ public class FriendlyPylonHealth : EntityHealth
 {
     protected override void Awake()
     {
-        this.startingHealth = 200f;
         base.Awake();
+        var scaler = EntityHealth.gameHandler.Scaler;
+        this.startingHealth = scaler.FriendlyPylonHealth;
     }
 }
