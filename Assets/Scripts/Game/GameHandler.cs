@@ -9,6 +9,8 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private Transform friendlyPylonSpawnPosition;
     [SerializeField] private Transform enemyPylonSpawnPosition;
 
+    [SerializeField] private GameObject levelCompleteScreen;
+
     public event EventHandler WaveStarts;
 
     private Scaler scaler = new Scaler();
@@ -43,7 +45,7 @@ public class GameHandler : MonoBehaviour
     {
         Debug.Log("You Won!");
         this.Scaler.IncreaseWave();
-        //TODO ADD overlay
+        this.levelCompleteScreen.SetActive(true);
         this.ClearRemainingEntities();
         this.RespawnPylons();
         StartCoroutine(this.RemoveOverlayAndStartNewWave());
@@ -93,7 +95,7 @@ public class GameHandler : MonoBehaviour
     private IEnumerator RemoveOverlayAndStartNewWave()
     {
         yield return new WaitForSeconds(2f);
-        //TODO remove overlay
+        this.levelCompleteScreen.SetActive(false);
         yield return new WaitForSeconds(1f);
         this.StartWave();
     }
